@@ -9,7 +9,6 @@ import {
 import Badge from "../../ui/badge/Badge";
 import { axiosI } from "../../../hooks/useAxios";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 interface Order {
   _id: number;

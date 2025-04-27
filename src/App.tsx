@@ -20,6 +20,7 @@ import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import ThreatReport from "./pages/ThreatReport/ThreatReport";
 
+
 export default function App() {
   return (
     <>
