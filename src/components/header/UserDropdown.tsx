@@ -46,10 +46,15 @@ export default function UserDropdown() {
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
         <div className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <img src={user?.profileImage} alt="User" />
+          <img
+            src={`data:image/png;base64,${user?.profileImage}`}
+            alt="User"
+          />
         </div>
 
-        <span className="block mr-1 font-medium text-theme-sm">{user?.name}</span>
+        <span className="block mr-1 font-medium text-theme-sm">
+          {user?.name}
+        </span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
