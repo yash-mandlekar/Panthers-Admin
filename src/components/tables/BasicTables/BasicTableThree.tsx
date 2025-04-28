@@ -20,19 +20,6 @@ interface Order {
   error?: string;
 }
 
-// Define the table data using the interface
-
-// const tableData: Order[] = [
-//   {
-//     _id: 1,
-//     url: "https://console.cloud.google.com/auth/clients/62578298169-in8fpcto15ai…",
-//     result: "Risky",
-//     deviceId: "mobjkfblekljkjicgmhhjfhcakcdmdmp",
-//     createdAt: "2025-04-26T07:19:56.734+00:00",
-//     updatedAt: "2025-04-26T07:19:56.734+00:00",
-//   },
-// ];
-
 export default function BasicTableThree() {
   const [history, setHistory] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

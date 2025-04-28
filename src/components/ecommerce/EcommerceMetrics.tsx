@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { axiosI } from "../../hooks/useAxios";
 import {
-  ArrowDownIcon,
-  ArrowUpIcon,
   BoxIconLine,
   GroupIcon,
 } from "../../icons";
-import Badge from "../ui/badge/Badge";
 
 export default function EcommerceMetrics() {
+  
   const [users, setUsers] = useState<number>(0);
   const [history, setHistory] = useState<number>(0);
 
@@ -53,10 +51,10 @@ export default function EcommerceMetrics() {
               {users}
             </h4>
           </div>
-          <Badge color="success">
+          {/* <Badge color="success">
             <ArrowUpIcon />
             11.01%
-          </Badge>
+          </Badge> */}
         </div>
       </div>
       {/* <!-- Metric Item End --> */}
@@ -76,10 +74,10 @@ export default function EcommerceMetrics() {
             </h4>
           </div>
 
-          <Badge color="error">
+          {/* <Badge color="error">
             <ArrowDownIcon />
             9.05%
-          </Badge>
+          </Badge> */}
         </div>
       </div>
       {/* <!-- Metric Item End --> */}
