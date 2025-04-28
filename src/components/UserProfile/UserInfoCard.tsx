@@ -11,6 +11,15 @@ export default function UserInfoCard() {
     console.log("Saving changes...");
     closeModal();
   };
+  const getUser = () => {
+    // Fetch user data from local storage or API
+    const user = localStorage.getItem("user");
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  };
+  const user = getUser();
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -25,7 +34,7 @@ export default function UserInfoCard() {
                 First Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {user?.name?.split(" ")[0] || "Anonymous"}
               </p>
             </div>
 
@@ -34,7 +43,7 @@ export default function UserInfoCard() {
                 Last Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
+                {user?.name?.split(" ")[1] || "User"}
               </p>
             </div>
 
@@ -43,27 +52,27 @@ export default function UserInfoCard() {
                 Email address
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {user?.email}
               </p>
             </div>
 
-            <div>
+            {/* <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
                 +09 363 398 46
               </p>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                 Bio
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
                 Team Manager
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
 
