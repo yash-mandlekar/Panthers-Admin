@@ -28,7 +28,7 @@ export default function BasicTableOne() {
     axiosI
       .get<Order[]>("/api/history")
       .then((response) => {
-        setHistory(response.data.reverse().slice(0,5));
+        setHistory(response.data.reverse().slice(0, 5));
         setLoading(false);
       })
       .catch((error) => {
@@ -40,7 +40,12 @@ export default function BasicTableOne() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="loader"></div>
+        <div className="loading-wave">
+          <div className="loading-bar"></div>
+          <div className="loading-bar"></div>
+          <div className="loading-bar"></div>
+          <div className="loading-bar"></div>
+        </div>
       </div>
     );
   }

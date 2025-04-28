@@ -10,17 +10,11 @@ const LayoutContent: React.FC = () => {
   const navigate = useNavigate();
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
   const checkAuth = async () => {
-    // if (localStorage.getItem("token") === null) {
-    //   console.log("User not logged in.");
-    //   return;
-    // }
     try {
       const response = await axiosI.get("/protected");
-      console.log("History data:", response.data.user);
       localStorage.setItem("user", JSON.stringify(response.data.user));
     } catch (error: any) {
       if (error.response.status === 401) {
-        console.log("User not logged in.");
         localStorage.removeItem("token");
         navigate("/signin");
       } else {
