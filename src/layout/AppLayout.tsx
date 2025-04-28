@@ -1,12 +1,36 @@
 import { SidebarProvider, useSidebar } from "../context/SidebarContext";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import AppHeader from "./AppHeader";
 import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
+import { useEffect } from "react";
+import { axiosI } from "../hooks/useAxios";
 
 const LayoutContent: React.FC = () => {
+  const navigate = useNavigate();
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
-
+  const checkAuth = async () => {
+    // if (localStorage.getItem("token") === null) {
+    //   console.log("User not logged in.");
+    //   return;
+    // }
+    try {
+      const response = await axiosI.get("/protected");
+      console.log("History data:", response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+    } catch (error: any) {
+      if (error.response.status === 401) {
+        console.log("User not logged in.");
+        localStorage.removeItem("token");
+        navigate("/signin");
+      } else {
+        console.log("Error fetching history:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    checkAuth();
+  }, []);
   return (
     <div className="min-h-screen xl:flex">
       <div>

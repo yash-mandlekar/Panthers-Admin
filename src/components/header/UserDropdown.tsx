@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link } from "react-router";
+import { axiosI } from "../../hooks/useAxios";
+import { useNavigate } from "react-router";
 
 export default function UserDropdown() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {
@@ -13,17 +15,41 @@ export default function UserDropdown() {
   function closeDropdown() {
     setIsOpen(false);
   }
+
+  async function handleLogout() {
+    // Perform logout logic here
+    try {
+      const response = await axiosI.get("/logout");
+      // redirect to login page or perform any other action
+      console.log("Logout response:", response.data);
+      navigate("/signin");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+    closeDropdown();
+  }
+
+  const getUser = () => {
+    // Fetch user data from local storage or API
+    const user = localStorage.getItem("user");
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  };
+  const user = getUser();
+
   return (
     <div className="relative">
       <button
         onClick={toggleDropdown}
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
-        <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <img src="/images/user/owner.jpg" alt="User" />
-        </span>
+        <div className="mr-3 overflow-hidden rounded-full h-11 w-11">
+          <img src={user?.profileImage} alt="User" />
+        </div>
 
-        <span className="block mr-1 font-medium text-theme-sm">Musharof</span>
+        <span className="block mr-1 font-medium text-theme-sm">{user?.name}</span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
@@ -51,7 +77,7 @@ export default function UserDropdown() {
       >
         <div>
           <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-            Musharof Chowdhury
+            Musharof2 Chowdhury
           </span>
           <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
             randomuser@pimjo.com
@@ -135,8 +161,8 @@ export default function UserDropdown() {
             </DropdownItem>
           </li>
         </ul>
-        <Link
-          to="/signin"
+        <button
+          onClick={handleLogout}
           className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
         >
           <svg
@@ -155,7 +181,7 @@ export default function UserDropdown() {
             />
           </svg>
           Sign out
-        </Link>
+        </button>
       </Dropdown>
     </div>
   );
